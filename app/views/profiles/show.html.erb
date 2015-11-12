@@ -1,0 +1,61 @@
+<div class="container">
+    <div class="row user-menu-container square">
+        <div class="col-md-12 user-details">
+            <div class="row coralbg white">
+                <div class="col-md-3 no-pad">
+                    <div class="user-image">
+                        <img src="http://keenthemes.com/assets/bootsnipp/img1-small.jpg" class="img-responsive thumbnail">
+                    </div>
+                </div>
+                <div class="col-md-9 no-pad">
+                   
+                    <div class="user-pad">
+                        <h3><%= @user.username %>'s Profile</h3>
+                        
+                        <h4 class="white"><i class="fa fa-twitter"></i>@<%= @user.username %></h4>
+                        <% if current_user.id != @user.id %>
+                          <% if current_user.friends.include?(@user) %>
+                            <%= link_to "Unfollow", relationship_path(current_user.relationships.find_by_friend_id(@user)), :method => :delete, class: "button", class: "btn btn-labeled btn-info" %>
+                          <% else %>
+                            <%= link_to "Follow", relationships_path(:friend_id => @user), method: :post, class: "button", class: "btn btn-labeled btn-info" %>
+                          <% end %>
+                        <%end%>
+                    </div>
+                </div>
+
+            </div>
+            <div class="row overview">
+                <div class="col-md-6 user-pad text-center">
+                    <h3>FOLLOWERS</h3>
+                    <h4>XXXX</h4>
+                </div>
+                <div class="col-md-6 user-pad text-center">
+                    <h3>FOLLOWING</h3>
+                    <h4>XXXX</h4>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+<% @user.tweets.each do |tweet| %>
+ <div class="container content">
+    <div class="row">
+        <div class="col-md-6 col-md-offset-6">
+            <div class="testimonials">
+            	<div class="active item">
+                    
+                  <blockquote><p><span class="testimonials-name">@<%= @user.username %></span><br/><%= tweet.message %></p></blockquote>
+                  <div class="carousel-info">
+                    <img alt="" src="http://keenthemes.com/assets/bootsnipp/img1-small.jpg" class="pull-left">
+                    
+                  </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<% end %>
+
